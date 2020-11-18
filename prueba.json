@@ -4,16 +4,16 @@
   "port": "/dev/ttyUSB0",
   "items": [
     {
-      "Input number": 3,
-      "readings": -0.53063
+      "Input number": 23,
+      "readings": 0.06038
     },
     {
       "Input number": 5,
-      "readings": -0.06113
+      "readings": -0.14888
     },
     {
       "Input number": 4,
-      "readings": -0.04275
+      "readings": -0.126
     }
   ]
 }
