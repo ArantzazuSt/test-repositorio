@@ -1,33 +1,44 @@
+#Fijar un valor en la salida y leer las entradas seleccionadas
+
+import json
+import argparse
+import time 
 
 from opendaq import *
-import argparse
+
+
+
+#funcion argparse
+
+parser = argparse.ArgumentParser(description='Valor de las salidas Opendaq')
+
+parser.add_argument('-p','--puerto', metavar= '', help='Puerto seleccionado')
+parser.add_argument('-l','--listInput',nargs='+', metavar='', type= int, help='Entradas seleccionadas' )
+parser.add_argument('-r','--rep', metavar='', type= int, help='Numero de repeticiones')
+
+args=parser.parse_args()
+
+#FALTA: def NumeroRepeticiones
+
+daq = DAQ(args.puerto)
+
+mylist = args.listInput      #Array de entradas a leer
+
+f=open("prueba.json",'w')
+data={       
+        "model":daq.hw_ver, 
+        "serial":daq.serial_str,
+        "port":args.puerto,
+        #"time": int(time.time()),
+        "items":[]      
+        
+     }   
+
+for i in mylist:
+    data["items"].append({"Input number":i, "readings":daq.read_analog()})
+    print (data)
+
 import json
+json.dump(data, f, indent= 2)
+f.close()
 
-
-parser = argparse.ArgumentParser(description = 'Leer las salidas analogicas fijando un valor de entrada')
-
-parser.add_argument('-p','--port', metavar='',required=True, default='/dev/ttyUSB0', help= 'Serial port (default: /dev/ttyUSB0)')
-parser.add_argument('-e','--input', metavar='', required=True,help= 'entradas seleccionadas')
-parser.add_argument('-r', '--rep', metavar='', required=True, help='numero de repeticiones')
-parser.add_argument('-j', '--JSON', metavar='',help= 'generar un archivo JSON')
-args = parser.parse_args()
-
-
-#   def create_test_json(self, results_input, results_outputs):
-#   filename = '%s_%s_test.json' % (self.serial_str, time.strftime ('%y%m%d'))
-#   
-#   f = open(filename, 'w')
-#   data = {
-#       "model": self.hw_ver,
-#       "serial": self.serial,
-#       "time": int(time.time()),
-#       "items": []
-#   }
-
-
-#Generar el archivo JSON
-#   json.dump(data, f, indent= 2)
-#   f.close()
-
-if __name__ == '__main__':
-    print ("El puerto escogido es %s, entrada %s y numero de repeticoines: %s") % (args.port, args.input, args.rep)

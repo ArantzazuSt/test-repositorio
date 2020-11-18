@@ -1,0 +1,19 @@
+{
+  "model": "[N]",
+  "serial": "ODN080377",
+  "port": "/dev/ttyUSB0",
+  "items": [
+    {
+      "Input number": 3,
+      "readings": -0.53063
+    },
+    {
+      "Input number": 5,
+      "readings": -0.06113
+    },
+    {
+      "Input number": 4,
+      "readings": -0.04275
+    }
+  ]
+}
